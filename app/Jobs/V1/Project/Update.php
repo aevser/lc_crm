@@ -3,7 +3,6 @@
 namespace App\Jobs\V1\Project;
 
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Str;
 
 class Update
 {

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Lead;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
 use App\Http\Requests\V1\Lead as Requests;
 use App\Jobs\V1\Lead as Jobs;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 class LeadController extends Controller

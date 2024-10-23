@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\V1\Project;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Http\Requests\V1\Project as Requests;
 use App\Jobs\V1\Project as Jobs;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -23,7 +23,7 @@ class ProjectController extends Controller
         return response()->json(['project' => $project], Response::HTTP_OK);
     }
 
-    public function store(Request $request)
+    public function store(Requests\CreateProjectRequest $request)
     {
         Jobs\Create::dispatchSync(
             user_id: $request->user_id,
@@ -39,7 +39,7 @@ class ProjectController extends Controller
         return response()->json('Проект добавлен', Response::HTTP_CREATED);
     }
 
-    public function update(Request $request, $id): JsonResponse
+    public function update(Requests\UpdateProjectRequest $request, $id): JsonResponse
     {
         Jobs\Update::dispatchSync(
             project_id: $id,

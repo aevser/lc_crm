@@ -11,7 +11,7 @@ class UpdateProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class UpdateProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => ['required', 'integer', 'exists:users,id'],
+            'timezone' => ['nullable', 'string'],
+            'enabled' => ['nullable', 'boolean'],
+            'detect_region' => ['nullable', 'boolean'],
+            'calltracking' => ['nullable', 'boolean'],
+            'leads_today' => ['required', 'integer'],
+            'leads_total' => ['required', 'integer'],
         ];
     }
 }
