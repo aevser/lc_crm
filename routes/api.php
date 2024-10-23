@@ -17,3 +17,5 @@ use App\Http\Controllers\Api\V1;
 Route::apiResource('project', V1\Project\ProjectController::class);
 
 Route::apiResource('host', V1\Host\HostController::class)->except('show');
+
+Route::apiResource('lead', V1\Lead\LeadController::class)->except('show');
