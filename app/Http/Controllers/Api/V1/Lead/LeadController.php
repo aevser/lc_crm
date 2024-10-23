@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Lead;
 
+use App\Events\LeadAdded;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Lead as Requests;
 use App\Jobs\V1\Lead as Jobs;
@@ -18,7 +19,7 @@ class LeadController extends Controller
 
     public function store(Requests\CreateLeadRequest $request)
     {
-        Jobs\Create::dispatchSync(
+        $lead = Jobs\Create::dispatchSync(
             project_id: $request->project_id,
             owner: $request->owner,
             company: $request->company,

@@ -2,6 +2,7 @@
 
 namespace App\Jobs\V1\Lead;
 
+use App\Events\LeadAdded;
 use Illuminate\Foundation\Bus\Dispatchable;
 
 class Create
@@ -81,6 +82,8 @@ class Create
             'utm_term' => $this->utm_term,
             'nextcall_date' => $this->nextcall_date
         ]);
+
+        event(new LeadAdded($lead));
 
         return $lead;
     }
