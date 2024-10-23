@@ -3,20 +3,53 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Host;
+use App\Models\Project\Project;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
+use Illuminate\Support\Str;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Заполняем тестовыми данными БД
+     * $user - Пользователи
+     * $project - Проекты
+     * $host - Хосты
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $faker = Faker::create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+         for ($i = 1; $i <= 10; $i++) {
+             // Пользователи
+             $user = User::create([
+                 'name' => $faker->name(),
+                 'email' => $faker->unique()->safeEmail,
+                 'password' => Hash::make('123456'),
+                 'enabled' => 1
+             ]);
+
+             // Проекты
+             $project = Project::create([
+                'user_id' => $user->id,
+                'api_token' => Str::random(60),
+                'timezone' => $faker->timezone,
+                 'enabled' => 1,
+                 'detect_region' => $faker->city,
+                 'calltracking' => 0,
+                 'leads_today' => 1,
+                 'leads_total' => 12
+             ]);
+
+             // Хосты
+             $host = Host::create([
+                 'project_id' => $project->id,
+                 'url' => $faker->url
+             ]);
+         }
     }
 }
